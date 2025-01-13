@@ -195,7 +195,7 @@ function Account() {
                     setEditedDescription('');
                 })
                 .catch((err) => {
-                    toast.error(err.response?.data?.error || 'Error occurred while saving');
+                    toast.error(err.response?.data?.error || 'Někde nastala chyba');
                 });
         }
     }
