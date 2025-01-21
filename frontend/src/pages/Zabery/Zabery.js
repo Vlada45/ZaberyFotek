@@ -2,11 +2,16 @@ import React, {useEffect, useRef, useState} from 'react';
 import {
     AddBtn,
     ArrowBtn,
-    CheckmarkIcon, ContainerInputNumber,
-    Foto, InputNumberContainer, InputNumberLabel, InputNumberWrapper, LabelWrapper,
+    CheckmarkIcon,
+    ContainerInputNumber,
+    Foto,
     PieceImages,
-    PiecesContainer, SectionOwnDirection,
-    ShowNum, StyledInputNumber, StyledLabel, StyledLabelInput,
+    PiecesContainer,
+    SectionOwnDirection,
+    ShowNum,
+    StyledInputNumber,
+    StyledLabel,
+    StyledLabelInput,
     SubmitBtn,
     TimeInput,
     ZaberyPage,
@@ -30,8 +35,8 @@ import Timeline from "../../components/Timeline/Timeline";
 import {IoIosCheckmarkCircleOutline} from "react-icons/io";
 import {MdOutlineZoomOutMap, MdZoomInMap} from "react-icons/md";
 import {AiOutlineRotateLeft, AiOutlineRotateRight} from "react-icons/ai";
-import {Container, InputWrapper, Label} from "../Prihlaseni/LoginComponents";
 import {toast} from "react-toastify";
+import {CanvasContent} from "../../components/Timeline/TimelineComponents";
 
 /** Hlavní funkce obsahující veškeré nástroje a komponenty k vytvoření daného klipu **/
 function Zabery(props) {
@@ -48,6 +53,9 @@ function Zabery(props) {
 
     // Aktuální obrázek
     const [currentImage, setCurrentImage] = useState('');
+
+    // Aktivní vybraný filtr obrázku
+    const [imgFilter, setImgFilter] = useState('Bez filtru');
 
     let positionX = [];
 
@@ -291,6 +299,21 @@ function Zabery(props) {
         return () => window.removeEventListener('resize', drawCanvas);
     }, [props.image]);
 
+    // Slova pro výběr změny stlyu obrázku
+    const filters = [
+        {name: 'Bez filtru', value: 'none'},
+        {name: 'Vignette', value: 'brightness(0.9) contrast(1.2) drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.5))'},
+        {name: 'Black & White', value: 'grayscale(100%)'},
+        {name: 'Warm', value: 'sepia(60%) brightness(1.1)'},
+        {name: 'Cool', value: 'brightness(0.9) contrast(1.1) hue-rotate(-20deg)'},
+        {name: 'Vintage', value: 'sepia(80%) contrast(0.8) brightness(0.9)'},
+    ];
+
+    /** Funkce pro získání aktivního filtru obrázku **/
+    const getFilter = () => {
+        return filters.find(filter => filter.name === imgFilter)?.value || 'none';
+    };
+
 
     /** Vykreslení plochy **/
     const drawCanvas = () => {
@@ -323,14 +346,22 @@ function Zabery(props) {
             isSaved = true;
         }
 
+        image.style.border = '5px solid red';
+
         // Načtení obrázku
         image.onload = () => {
 
             // Vlastní responzivita obrázku
             responsivityCheck(canvas, image);
 
+            // Nastavení filtru
+            ctx.filter = getFilter();
+
             // Vykreslení obrázku do plochy
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+            // Odstranění filtru
+            ctx.filter = 'none';
 
             // Barva linie
             ctx.strokeStyle = 'red';
@@ -569,7 +600,9 @@ function Zabery(props) {
     /** Vykreslení obrázku a plochy **/
     useEffect(() => {
         drawCanvas();
-    }, [props.image]);
+
+        console.log("SLYSIME SE")
+    }, [props.image, imgFilter]);
 
     const sortLines = (position) => {
 
@@ -657,6 +690,10 @@ function Zabery(props) {
 
                 // Nová částice
                 const pieceContext = pieceCanvas.getContext('2d');
+
+                // Nastavení filtru
+                pieceContext.filter = getFilter();
+
                 pieceContext.drawImage(image, x, y, width, height, 0, 0, width, height);
 
                 // Přidání údajů o částicích do pole
@@ -679,7 +716,7 @@ function Zabery(props) {
                 {pieces.map(({id, src}) => {
 
                     // Informace o částicích
-                    console.log("Piece info", selectedPieces);
+                    console.log("Piece info +++++++++", selectedPieces, pieces);
 
                     // Zvolený prvek uživatelem
                     const selectedPiece = selectedPieces.find(item => item.id === id);
@@ -688,8 +725,16 @@ function Zabery(props) {
                         <div
                             key={id}
                             id={id}
-                            onClick={() =>
-                                handlePieces(id,
+                            onClick={() => {
+
+                                setSelectedPieces((prevSelectedPieces) =>
+                                    prevSelectedPieces.filter((selectedPiece) =>
+                                        pieces.some((piece) => piece.id === selectedPiece.id)
+                                    )
+                                );
+
+                                handlePieces(
+                                    id,
                                     src,
                                     null,
                                     null,
@@ -698,7 +743,7 @@ function Zabery(props) {
                                     rangeValue,
                                     1,
                                     arrowDirection,
-                                    null)}
+                                    null)}}
 
                             style={{
                                 position: "relative"
@@ -711,7 +756,6 @@ function Zabery(props) {
                             />
 
                             {selectedPiece && (
-
 
                                 <div
                                     style={{
@@ -731,6 +775,7 @@ function Zabery(props) {
                                     }}
                                 >
                                     {selectedPiece.value}
+
                                 </div>
                             )}
                         </div>
@@ -842,7 +887,7 @@ function Zabery(props) {
                         ? {
                             ...item,
                             id: item.id,
-                            value: index,
+                            //value: index,
                             width: newWidth,
                             left: newLeft,
                             isSubmitted: isSubmitted,
@@ -972,6 +1017,14 @@ function Zabery(props) {
         }
     };
 
+    // Styly pro text
+    const textStyles = {
+        textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    };
+
     // Styly pro vlastní směr
     const rowStyles = {display: 'flex', flexDirection: 'row', gap: '10px', alignItems: 'center'};
 
@@ -998,10 +1051,39 @@ function Zabery(props) {
 
                 </ZaberySidebarItem>
 
+                {activeItem === 'item1' && (
+
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        gap: '15px',
+                        color: 'white',
+                        marginTop: '5px',
+                        marginBottom: '10px'
+                    }}>
+                        {filters.map((item, index) => (
+                            <CanvasContent
+                                key={index}
+                                style={{
+                                    ...textStyles,
+                                    backgroundColor: imgFilter === item.name ? '#00b75c' : 'transparent',
+                                    boxShadow: imgFilter === item.name ? '0px 2px 4px #79ff73' : '0px 2px 4px var(--color-shadow-6)',
+                                    cursor: 'pointer'
+                                }}
+                                onClick={() => setImgFilter(item.name)}
+                            >
+                                {item.name}
+                            </CanvasContent>
+                        ))}
+                    </div>
+                )}
+
                 <ZaberySidebarItem isClicked={activeItem === 'item2'}
                                    onClick={() => handleVisibility('item2', setActiveItem)}>
 
-                    <PiNumberCircleTwo style={{height: "35px", width: "35px"}}/> Rozdělení na části
+                    <PiNumberCircleTwo style={{height: "35px", width: "35px"}}/> Rozdělit na části
 
                 </ZaberySidebarItem>
 
@@ -1048,7 +1130,7 @@ function Zabery(props) {
                 <ZaberySidebarItem isClicked={activeItem === 'item3'}
                                    onClick={() => handleVisibility('item3', setActiveItem)}>
 
-                    <PiNumberCircleThree style={{height: "35px", width: "35px"}}/> Rozdělit na obrázky
+                    <PiNumberCircleThree style={{height: "35px", width: "35px"}}/> Výběr částic
 
                 </ZaberySidebarItem>
 
@@ -1195,7 +1277,8 @@ function Zabery(props) {
                             <SectionOwnDirection isClicked={activeArrow === 'arrow13'}>
 
                                 <div style={rowStyles}>
-                                    <StyledLabel style={{color: 'white'}}>CÍL:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</StyledLabel>
+                                    <StyledLabel
+                                        style={{color: 'white'}}>CÍL:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</StyledLabel>
                                     <div style={rowStyles}>
                                         <StyledLabelInput isClicked={activeArrow === 'arrow13'}>X:</StyledLabelInput>
                                         <StyledInputNumber
@@ -1271,7 +1354,7 @@ function Zabery(props) {
 
                 {activeItem === 'item4' &&
                     <Timeline canvasRef={canvasRef} selectedPieces={selectedPieces} handlePieces={handlePieces}
-                              handlePieceClick={handlePieceClick}
+                              handlePieceClick={handlePieceClick} imgFilter={getFilter()}
                     />
 
                 }

@@ -21,7 +21,7 @@ import PopUpComponent from "../PopUp/PopUp";
 import axios from "axios";
 
 /** Prvek časové osy **/
-function Timeline({canvasRef, selectedPieces, handlePieces, handlePieceClick}) {
+function Timeline({canvasRef, selectedPieces, handlePieces, handlePieceClick, imgFilter}) {
 
     let {timelineRef, barWidth} = TimelineWidth();
 
@@ -236,6 +236,8 @@ function Timeline({canvasRef, selectedPieces, handlePieces, handlePieceClick}) {
         const canvas = videoRef.current;
 
         const ctx = canvas.getContext('2d');
+
+        ctx.filter = imgFilter;
 
         // Získání hodnoty z paměti pro plochu klipu
         // setSelector(null, 'canvasSelector', false, 1);
@@ -1827,6 +1829,7 @@ function Timeline({canvasRef, selectedPieces, handlePieces, handlePieceClick}) {
                                 timelineWidth={timelineRef}
                                 btnName={btnName}
                                 transition={transition}
+                                imgFilter={imgFilter}
                             />
                         ))}
 

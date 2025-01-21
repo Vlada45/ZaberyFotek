@@ -15,7 +15,8 @@ const TimelinePieces = ({
                             pieceIsClicked,
                             timelineWidth,
                             btnName,
-                            transition
+                            transition,
+                            imgFilter
                         }) => {
 
     // Změna velikosti prvku
@@ -24,7 +25,6 @@ const TimelinePieces = ({
     const startX = useRef(0);
     const startWidth = useRef(0);
     const startLeft = useRef(0);
-
     const containerRef = useRef(null);
 
     // Šířka prvku
@@ -269,11 +269,21 @@ const TimelinePieces = ({
                 ? '2px solid var(--color-blue-8)'
                 : 'none'),
         position: 'absolute',
-        backgroundImage: `url(${piece.src})`,
+        //backgroundImage: `url(${piece.src})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'repeat-x',
         left: `${pieceLeft}px`,
         justifyContent: 'center'
+    };
+
+    const backgroundStyles = {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        backgroundImage: `url(${piece.src})`,
+        backgroundSize: 'contain',
+        backgroundRepeat: 'repeat-x',
+        filter: imgFilter
     };
 
     const handleStyles = {
@@ -315,6 +325,8 @@ const TimelinePieces = ({
             style={boxStyles}
             onClick={(e) => handleClick("piece", e)}
         >
+            <div style={backgroundStyles}></div>
+
             <div
                 style={leftHandleStyles}
                 onMouseDown={(e) => onMouseDown(e, 'left')}
@@ -352,7 +364,7 @@ const TimelinePieces = ({
                 </div>
             )}
 
-            {(piece?.transition?.coordinateRes !== undefined && piece?.transition?.coordinateRes !== null)  &&
+            {(piece?.transition?.coordinateRes !== undefined && piece?.transition?.coordinateRes !== null) &&
 
                 <div
                     title={'Přechod'}
