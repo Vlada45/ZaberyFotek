@@ -214,7 +214,7 @@ function Zabery(props) {
     // Aktivní prvek Timeline
     const [timelineItem, setTimelineItem] = useState(null);
 
-    /** Funkce pro přidání nebo odebrání řádků **/
+    /** Funkce pro přidání nebo odebrání sloupců / řádků **/
     const operationHandler = (operation, type, setType, word) => {
 
         // Přidávání linií
@@ -227,10 +227,32 @@ function Zabery(props) {
 
             let position = 0;
 
+            // Typy linií
+            let linePositionVertical = items.length > 0 && items.some(item => item.type === 'vertical') ? items.filter(item => item.type === 'vertical').pop()?.position : 0;
+            let linePositionHorizontal = items.length > 0 && items.some(item => item.type === 'horizontal') ? items.filter(item => item.type === 'horizontal').pop()?.position : 0;
+
+            /** Metoda pro nastavení pozice linie **/
+            const linePositionType = (dimension, type) => {
+
+                if (type === 'vertical') {
+                    if (linePositionVertical === 0) {
+                        position = dimension / 2;
+                    } else {
+                        position = linePositionVertical / 2;
+                    }
+                } else if (type === 'horizontal') {
+                    if (linePositionHorizontal === 0) {
+                        position = dimension / 2;
+                    } else {
+                        position = linePositionHorizontal / 2;
+                    }
+                }
+            }
+
             // Přidání sloupce
             if (word === "columnAdd") {
 
-                position = canvasRef.current.width / (type + 2);
+                linePositionType(canvasRef.current.width, 'vertical');
 
                 // Přidání vertikální čáry uprostřed plátna
                 newLines.vertical.push(position);
@@ -241,7 +263,7 @@ function Zabery(props) {
 
             } else {
 
-                position = canvasRef.current.height / (type + 2);
+                linePositionType(canvasRef.current.height, 'horizontal');
 
                 // Přidání horizontální čáry uprostřed plátna
                 newLines.horizontal.push(position);
@@ -291,7 +313,7 @@ function Zabery(props) {
         drawCanvas();
     };
 
-    // Responzivita plochy
+    /**  Průběžná responzivita plochy **/
     useEffect(() => {
 
         window.addEventListener('resize', drawCanvas);
@@ -313,7 +335,6 @@ function Zabery(props) {
     const getFilter = () => {
         return filters.find(filter => filter.name === imgFilter)?.value || 'none';
     };
-
 
     /** Vykreslení plochy **/
     const drawCanvas = () => {
@@ -394,6 +415,7 @@ function Zabery(props) {
         }
     };
 
+    /** Metoda upravující velikost obrázku na základě velikosti okna **/
     const responsivityCheck = (canvas, image) => {
 
         if (image.height > 1000) {
@@ -558,7 +580,7 @@ function Zabery(props) {
             // Aktualizace stavu linií
             setLines({...lines});
 
-            drawCanvas();
+            //drawCanvas();
 
             // Pokud uživatel nepřetahuje, ale pohybuje myší
         } else {
@@ -600,10 +622,10 @@ function Zabery(props) {
     /** Vykreslení obrázku a plochy **/
     useEffect(() => {
         drawCanvas();
+    }, [props.image, imgFilter, lines, dragging]);
 
-        console.log("SLYSIME SE")
-    }, [props.image, imgFilter]);
 
+    /** Třídicí algoritmus **/
     const sortLines = (position) => {
 
         let temp = 0;
