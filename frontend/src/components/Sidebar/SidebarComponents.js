@@ -66,7 +66,10 @@ export const SidebarLink = styled(Link)`
 
 export const SidebarBtn = styled.div`
     display: flex;
-    justify-content: center;`
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    `
 ;
 
 export const SidebarBtnLink = styled(LinkR)`

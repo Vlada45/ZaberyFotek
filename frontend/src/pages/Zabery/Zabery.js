@@ -649,12 +649,6 @@ function Zabery(props) {
     /** Funkce pro zobrazení jednotlivých částic z fotografie **/
     const getPieces = () => {
 
-        // const itemsVer = items.map(line =>
-        //     line.type === 'vertical'
-        // );
-        //
-        // console.log(itemsVer);
-
         // Nahraná fotografie
         const image = new Image();
         image.src = currentImage;
@@ -683,18 +677,19 @@ function Zabery(props) {
         // Pole pro částice
         const pieces = [];
 
-        console.log("REAL", image.width, image.height)
+        // console.log("REAL", image.width, image.height)
 
         // Souřadnicová pole
         const finalPositionX = [0, ...positionX, image.width];
         const finalPositionY = [0, ...positionY, image.height];
 
+        // ID částice
         let idImg = 0;
 
-        // Řádky
+        // Procházení řádků
         for (let i = 0; i < finalPositionY.length - 1; i++) {
 
-            // Sloupce
+            // Procházení sloupců
             for (let j = 0; j < finalPositionX.length - 1; j++) {
 
                 // Pozice x, y na ploše
@@ -712,10 +707,9 @@ function Zabery(props) {
 
                 // Nová částice
                 const pieceContext = pieceCanvas.getContext('2d');
-
-                // Nastavení filtru
                 pieceContext.filter = getFilter();
 
+                // Vykreslení částice do plochy canvas
                 pieceContext.drawImage(image, x, y, width, height, 0, 0, width, height);
 
                 // Přidání údajů o částicích do pole
@@ -723,7 +717,6 @@ function Zabery(props) {
                     id: idImg,
                     src: pieceCanvas.toDataURL()
                 });
-
                 idImg++;
             }
         }
