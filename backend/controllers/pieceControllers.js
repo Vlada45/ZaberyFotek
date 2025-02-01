@@ -179,7 +179,7 @@ const addPiecesData = (req, res) => {
  * Endpoint: /getClips
 */
 const getClips = (req, res) => {
-    const { user_id, sortBy } = req.body;
+    const { user_id, sortBy } = req.query;
 
     console.log("ID", user_id);
 

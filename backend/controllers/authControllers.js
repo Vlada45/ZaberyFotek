@@ -87,7 +87,6 @@ const validateForgotPassword = (req, res) => {
 
 /**
  * Sekce: Resetování hesla uživatele pomocí OTP
- * Ověření, zda email se nachází v databázi.
  * Endpoint: /resetPassword
  */
 const resetPassword = (req, res) => {
@@ -128,8 +127,6 @@ const changePersonalData = (req, res) => {
     let validationErrors = [];
 
     if (type === 'deleteClip') {
-
-        console.log("POPRVE")
 
         return deleteClip(db, clip_id, res);
 

@@ -125,32 +125,30 @@ function Account() {
     /** Načítání nejnovějších verzí klipů **/
     useEffect(() => {
 
-        // const storedClipId = localStorage.getItem('idClip');
-
-        // console.log("STORED", storedClipId)
-
-        // if (storedClipId !== idClip) {
-        //     setIdClip(storedClipId);
-        // }
-
-        // if (storedClipId === 'clipDeleted') {
-        //     toast.success('Klip byl úspěšně smazán');
-        // }
-
+        // Pokud je aktivní sekce 'Moje projekty'
         if ((activeItem === 'Moje projekty' || clips.length === 0) && !loading) {
+
             setLoading(true);
 
+            // Zpracování GET požadavku na serveru
             axios
-                .post('http://localhost:4000/data/getClips', {
-                    user_id: userData?.id,
-                    sortBy: sortCriteria,
+                .get('http://localhost:4000/data/getClips', {
+
+                    // Data
+                    params : {
+                        user_id: userData?.id, // ID uživatele
+                        sortBy: sortCriteria,  // Filtr
+                    }
                 })
                 .then((res) => {
 
+                    // Uložení získaných videí (useState)
                     setClips(res.data?.clips);
 
                 })
                 .catch((err) => {
+
+                    // Notifikace pro chybu
                     toast.error(err.response?.data?.error || 'Chyba načtení klipů');
                 })
                 .finally(() => {
@@ -158,7 +156,7 @@ function Account() {
                 });
         }
 
-    }, [sortCriteria, idClip, isEditing, activeItem]);
+    }, [sortCriteria, idClip, isEditing, activeItem]); // Hook se spustí při změně těchto hodnot
 
     /** Inicializuje stav úprav pro vybraný klip, pokud je aktivní režim úprav **/
     useEffect(() => {

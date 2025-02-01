@@ -223,8 +223,6 @@ const updateUserData = (db, type, username, email, inputData, res) => {
 /** Funkce pro smazání klipu **/
 const deleteClip = (db, clip_id, res) => {
 
-    console.log("JSME TADY", clip_id)
-
     // Získání klipu podle ID
     db.get('SELECT * FROM clips WHERE id = ?', [clip_id], (err, row) => {
         if (err) {

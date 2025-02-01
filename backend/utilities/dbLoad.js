@@ -78,6 +78,6 @@ db.exec(createTablesSQL, (err) => {
     if (err) {
         console.error('Chyba', err);
     } else {
-        console.log('Tabulky byly úspěšně vytvořeny');
+        console.log('Tabulky byly úspěšně vytvořeny nebo načteny');
     }
 });
