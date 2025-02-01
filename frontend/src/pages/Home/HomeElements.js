@@ -10,8 +10,7 @@ export const HomeContainer = styled.div`
     height: 100vh;
     min-height: 800px;
     z-index: -1;
-    justify-items: center;
-    align-content: center;
+    justify-content: center;
     overflow: hidden;
 `;
 
