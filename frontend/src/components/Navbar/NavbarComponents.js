@@ -117,4 +117,6 @@ export const UserProfile = styled(Link)`
     justify-content: center;
     line-height: 24px;
     width: 36px;
+    overflow: hidden;
+    cursor: pointer;
 `;

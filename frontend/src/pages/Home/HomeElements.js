@@ -3,14 +3,15 @@ import {FaArrowRight, FaPlus} from "react-icons/fa";
 import {Resizable} from "re-resizable";
 
 export const HomeContainer = styled.div`
-    display: grid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     background: radial-gradient(circle at top left, var(--color-blue-9) 0%, var(--color-blue-5) 10%, transparent 20%),
-                radial-gradient(circle at bottom right, var(--color-blue-9) 0%, var(--color-blue-5) 10%, transparent 20%);
-    width: 100vw;
+    radial-gradient(circle at bottom right, var(--color-blue-9) 0%, var(--color-blue-5) 10%, transparent 20%);
     height: 100vh;
     min-height: 800px;
     z-index: -1;
-    justify-content: center;
     overflow: hidden;
 `;
 
@@ -27,7 +28,7 @@ export const HeadingContainer = styled.h1`
     justify-content: center;
     font-size: 6em;
     align-items: center;
-    margin-top: 75px;
+    margin-top: 25px;
     gap: 20px;
 
     @media screen and (max-width: 768px) {
@@ -74,7 +75,9 @@ export const ImageArea = styled.div.withConfig({
     justify-content: center;
     align-content: center;
     box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.18 );
-    margin: 25px;
+    margin-top: 25px;
+    margin-bottom: 50px;
+    
 `;
 
 
@@ -103,7 +106,7 @@ export const DefaultBtn = styled.button`
     letter-spacing: 0.05rem;
     width: 300px;
 
-    @media screen and (max-width: 400px) {
+    @media screen and (max-width: 450px) {
         max-width: 200px;
     }
 

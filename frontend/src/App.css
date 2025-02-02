@@ -151,6 +151,11 @@ ul {
     animation: slideInFromLeft 1.5s ease-out forwards;
 }
 
+.drag-over {
+    border: 2px dashed var(--home-blue-dark);
+    background-color: var(--color-shadow-6);
+}
+
 /*li {*/
 /*    padding-left: 1rem;*/
 /*    text-indent: -0.75rem;*/

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {motion} from 'framer-motion';
 
+/** Funkce pro animaci jednotlivých obrazovek **/
 function Transition({Component}) {
 
     // nastavení viditelnosti efektu

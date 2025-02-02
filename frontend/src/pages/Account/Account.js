@@ -236,7 +236,7 @@ function Account() {
                                     alignItems: 'center'
                                 }}>
                                     <SectionTitle>{activeItem}</SectionTitle>
-                                    <div>
+                                    <div style={{display: 'flex', justifyContent: 'flex-end', flexDirection: 'column', alignItems: 'flex-end'}}>
                                         <Label htmlFor='sort-select'>Seřadit podle:</Label>
                                         <Select id='sort-select' value={sortCriteria} onChange={handleSortChange}>
                                             <Option value=''>Výchozí</Option>
@@ -444,7 +444,7 @@ function Account() {
                             <Section>
                                 <SectionTitle>Změna hesla</SectionTitle>
                                 <SectionParagraph>
-                                    Zde můžete změnit své heslo pro lepší zabezpečení
+                                    Zde můžete změnit své heslo pro zabezpečení
                                 </SectionParagraph>
                                 <ButtonContainer>
                                     <AccountButton color="#ff7f4e">

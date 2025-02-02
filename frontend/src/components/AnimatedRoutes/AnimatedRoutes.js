@@ -9,7 +9,7 @@ import SignUp from "../../pages/Registrace/SignUp";
 import ForgotPassword from "../../pages/ZapomenuteHeslo/ForgotPassword";
 import ResetPassword from "../../pages/ZapomenuteHeslo/ResetPassword";
 import Account from "../../pages/Account/Account";
-import Kontakt from "../../pages/Kontakt";
+import Kontakt from "../../pages/Kontakt/Kontakt";
 
 function AnimatedRoutes(props) {
 

@@ -87,6 +87,6 @@ export const SidebarBtnLink = styled(LinkR)`
     &:hover {
         transition: all 0.2s ease-in-out;
         color: yellow;
-        background: var(--color-blue-8);
+        background: var(--color-blue-6);
     }`
 ;

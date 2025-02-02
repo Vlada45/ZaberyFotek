@@ -422,16 +422,16 @@ function Zabery(props) {
 
             const prev = image.height;
 
-            image.height = 800;
-            image.width *= (800 / prev);
+            image.height = 750;
+            image.width *= (750 / prev);
         }
 
         if (image.width > 1000) {
 
             const prev = image.width;
 
-            image.width = 800;
-            image.height *= (800 / prev);
+            image.width = 750;
+            image.height *= (750 / prev);
         }
 
         // Velikost obrazovky uživatele

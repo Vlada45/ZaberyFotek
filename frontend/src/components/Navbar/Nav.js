@@ -1,13 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {
-    Nav,
-    NavLink,
-    Bars,
-    NavMenu,
-    NavBtn,
-    NavBtnLink, UserProfile
-
-} from './NavbarComponents'
+import React, {useEffect, useState} from 'react';
+import {Bars, Nav, NavBtn, NavBtnLink, NavLink, NavMenu, UserProfile} from './NavbarComponents'
 import {useNavigate} from "react-router-dom";
 
 /** Funkce zobrazující navigační panel **/
@@ -16,9 +8,9 @@ function Navbar({toggle}) {
     /** Zdroj: https://github.com/cyrus8050/yt-react-navbar-transition/blob/master/src/Navbar.js **/
 
     const [show, setShow] = useState(true)
-    const controlNavbar = () => {
 
-        console.log(window.scrollY);
+    /** Zobrazení Navbaru podle osy Y **/
+    const controlNavbar = () => {
 
         if (window.scrollY > 250) {
 
@@ -44,6 +36,9 @@ function Navbar({toggle}) {
     const icon = data?.image;
 
     console.log("icon", icon, "first", firstLetter);
+
+    const loadedIcon = new Image();
+    loadedIcon.src = icon;
 
     useEffect(() => {
 
@@ -88,7 +83,6 @@ function Navbar({toggle}) {
             <NavMenu>
 
                 <NavLink to={"o-projektu"}>O projektu</NavLink>
-                <NavLink to={"sluzby"}>Služby</NavLink>
                 <NavLink to={"kontakt"}>Kontakt</NavLink>
                 <NavLink to={""}>Vyzkoušet nyní</NavLink>
 
@@ -100,11 +94,17 @@ function Navbar({toggle}) {
 
                     (icon ?
                         <UserProfile to={"ucet"}
-                            style={{
-                                backgroundImage: `url(${icon})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center'
-                            }}/> :
+                        >
+                            <img
+                                src={icon}
+                                alt={'Ikona Google'}
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover'
+                                }}
+                            />
+                        </UserProfile> :
                         <UserProfile style={{background: '#fc555f'}} to={"ucet"}>{firstLetter}</UserProfile>) :
 
                     <NavBtn>

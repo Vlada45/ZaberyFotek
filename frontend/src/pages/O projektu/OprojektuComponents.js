@@ -13,10 +13,14 @@ export const DesUl = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    flex-direction: column;
+    flex-direction: row;
     margin-top: 15px;
     width: 75%;
     //margin-left: 25%;
+    
+    @media screen and (max-width: 900px) {
+        flex-direction: column;
+    }
 `;
 
 export const TextDecoration = styled.div`
@@ -43,7 +47,7 @@ export const OrderList = styled.div`
         border-radius: 50%;
         background-color: #4f58bd;
         color: #fff;
-        margin-right: 10px;
+        margin-right: 15px;
     }
 `;
 

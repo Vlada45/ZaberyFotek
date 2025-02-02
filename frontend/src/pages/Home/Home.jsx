@@ -15,8 +15,10 @@ import {Resizable} from "re-resizable";
 import {Resizer} from "re-resizable/lib/resizer";
 import {useNavigate} from "react-router-dom";
 
+/** Obrazovka - Domovská stránka **/
 function Home(props) {
 
+    // Kontrola, zda je tlačítko zobrazeno
     const [isUploadBtnVisible, setIsUploadBtnVisible] = useState(true);
 
     // Změna rozvržení ImageArea
@@ -30,6 +32,7 @@ function Home(props) {
         fileInputRef.current.click();
     };
 
+    // Obsah fotky
     const [imageSrc, setImageSrc] = useState(null);
 
     /** Funkce pro načtení obrázku **/
@@ -73,20 +76,35 @@ function Home(props) {
     // Přesměrování na jinou adresu
     const navigate = useNavigate()
 
+    /** Přesměrování **/
     const redirectPage = ()=> {
         navigate("/zabery");
     }
 
-    const enable = { bottom: true };
+    // Proměnná pro stav přetahování
+    const [isDragging, setIsDragging] = useState(false);
 
-    const [isInitHeight, setIsInitHeight] = useState(true);
+    /** Kurzor se nachází nad plochou **/
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        setIsDragging(true);
+    };
 
-    const onResizeStart = useCallback(() => {
-        if (!isInitHeight) return;
+    /** Ukončení přetažení obrázku **/
+    const handleDragLeave = () => {
+        setIsDragging(false);
+    };
 
-        setIsInitHeight(false);
-    }, [isInitHeight]);
+    /** Položení obrázku na plochu **/
+    const handleDrop = (e) => {
+        e.preventDefault();
+        setIsDragging(false);
 
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith("image/")) {
+            imageUpload({ target: { files: [file] } });
+        }
+    };
 
     return (
 
@@ -122,53 +140,39 @@ function Home(props) {
 
             </TextElements>
 
-            <ImageArea isClicked={isChanged} backgroundIsVisible={isChanged} imageHeight={isChanged}
-                       imageWidth={isChanged}>
-
-                {/* Načtená fotografie */}
-
-
-                {/*<ResizeImage isShowed={isChanged}*/}
-                {/*             minHeight={500}*/}
-                {/*             minWidth={250}*/}
-                {/*             maxWidth={500}*/}
-                {/*             maxHeight={625}*/}
-                {/*             onResize={onResizeStart}*/}
-                {/*             enable={enable}*/}
-                {/*>*/}
-
+            <ImageArea
+                isClicked={isChanged}
+                backgroundIsVisible={isChanged}
+                imageHeight={isChanged}
+                imageWidth={isChanged}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                className={isDragging ? "drag-over" : ""}
+            >
                 {imageSrc && (
-                    <img id={"foto"} src={imageSrc} alt="Vaše fotografie"
-                         style={{
-                             width: '100%', height: '100%', objectFit: 'contain', padding: '25px'
-                         }}
+                    <img
+                        id="foto"
+                        src={imageSrc}
+                        alt="Vaše fotografie"
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "contain",
+                            padding: "25px",
+                        }}
                     />
-
                 )}
 
-                {/*</ResizeImage>*/}
-
-                {/*<RowBtn>+</RowBtn>*/}
-
-                {/*<ColumnBtn>*/}
-
-
-                {/*</ColumnBtn>*/}
-
-
-                {isUploadBtnVisible && (<DefaultBtn onClick={fileBtnClick}>
-
-                    <PlusIcon/>
-                    <span>Vyberte fotografii</span>
-
-                    {/* Vstup uživatele - obrázek */}
-                    <input type="file" accept="image/*" onChange={imageUpload} ref={fileInputRef} hidden/>
-
-                </DefaultBtn>)
-                }
+                {isUploadBtnVisible && (
+                    <DefaultBtn onClick={fileBtnClick}>
+                        <PlusIcon />
+                        <span>Vyberte fotografii</span>
+                        <input type="file" accept="image/*" onChange={imageUpload} ref={fileInputRef} hidden />
+                    </DefaultBtn>
+                )}
 
                 {isUploadBtnVisible && <TextDesc>Nebo můžete přetáhnout obrázek sem</TextDesc>}
-
             </ImageArea>
 
             {imageSrc && <DefaultBtn onClick={() => redirectPage()}>Pokračovat <ArrowIcon/> </DefaultBtn>}

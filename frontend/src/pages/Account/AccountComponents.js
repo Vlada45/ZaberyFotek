@@ -3,8 +3,13 @@ import styled from 'styled-components';
 export const AccountContainer = styled.div`
     display: flex;
     background-color: #f9f9f9;
-    height: 100vh;
     justify-content: flex-start;
+    overflow-y: auto;
+
+    @media screen and (max-width: 875px) {
+        flex-direction: column-reverse;
+        max-height: calc(100vh - 100px);
+    }
 `;
 
 export const Sidebar = styled.aside`
@@ -19,6 +24,16 @@ export const Sidebar = styled.aside`
     margin-top: 120px; 
     margin-left: 25px;
     height: max-content;
+
+    @media screen and (max-width: 875px) {
+        position: fixed;    
+        bottom: 0;          
+        left: 0;         
+        width: fit-content;      
+        z-index: 50;      
+        flex-direction: row;
+        justify-content: center;
+    }
 `;
 
 export const SidebarItem = styled.div.withConfig({
@@ -61,7 +76,6 @@ export const ProjectsContainer = styled.div`
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     min-height: 300px;
     width: 100%;
-    height: auto;
 `;
 export const GridContainer = styled.div`
     display: grid;
@@ -69,6 +83,10 @@ export const GridContainer = styled.div`
     gap: 20px;
     width: 100%;
     margin-top: 25px;
+
+    @media screen and (max-width: 650px) {
+        grid-template-columns: 1fr; 
+    }
 `;
 
 export const CardContent = styled.div`
@@ -196,7 +214,15 @@ export const InfoValue = styled.span`
     font-size: 16px;
     font-weight: 500;
     color: #333;
-    flex: 3; 
+    flex: 3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+
+    @media screen and (max-width: 550px) {
+        font-size: 14px;
+    }
 `;
 
 export const EditIcon = styled.button`
@@ -265,7 +291,7 @@ export const ChangeContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 20px;
+    gap: 15px;
 `;
 
 export const Section = styled.div`
@@ -318,6 +344,11 @@ export const Select = styled.select`
   color: #333;
   outline: none;
   cursor: pointer;
+    width: fit-content;
+
+    @media screen and (max-width: 550px) {
+        width: 25%;
+    }
 
   &:focus {
     border-color: #007bff;

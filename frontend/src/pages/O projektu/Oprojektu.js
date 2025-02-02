@@ -17,7 +17,8 @@ function Oprojektu() {
 
             <HeadingContainer style={{
                 animation: "slideDown 1s ease-out",
-                height: 'fit-content'
+                height: 'fit-content',
+                marginTop: '1em'
             }}>O
                 projektu</HeadingContainer>
 
@@ -65,7 +66,7 @@ function Oprojektu() {
                                 <h2 style={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'center', width: '15%'
+                                    justifyContent: 'center', width: '10%'
                                 }} role="img" aria-label="technology">📚</h2>
                                 <h2 style={{
                                     display: 'flex',
@@ -91,7 +92,7 @@ function Oprojektu() {
                                             marginRight: '10px',
                                             color: 'black'
                                         }}>▶</span> Účel:</TextDecoration>
-                                        <span style={{textAlign: "left"}}>Tvorba záběrů z obrázků a jejich spojení do videoklipů</span>
+                                        <span style={{textAlign: 'left', marginTop: '10px'}}>Tvorba záběrů z obrázků a jejich spojení do videoklipů</span>
                                     </li>
                                     <li style={{
                                         display: 'flex',
@@ -103,7 +104,7 @@ function Oprojektu() {
                                             color: 'black'
                                         }}>▶</span> Myšlenka:</TextDecoration>
                                         <span
-                                            style={{textAlign: "left"}}>Prezentace uměleckých děl formou záběrů fotek</span>
+                                            style={{textAlign: 'left', marginTop: '10px'}}>Prezentace uměleckých děl formou záběrů fotek</span>
                                     </li>
                                     <li style={{
                                         display: 'flex',
@@ -115,7 +116,7 @@ function Oprojektu() {
                                             marginRight: '10px',
                                             color: 'black'
                                         }}>▶</span> Přínos:</TextDecoration>
-                                        <span style={{textAlign: "left"}}>Rychlé a jednoduché vytváření videí</span>
+                                        <span style={{textAlign: 'left', marginTop: '10px'}}>Rychlé a jednoduché vytváření videí</span>
                                     </li>
                                 </ul>
 
@@ -140,7 +141,7 @@ function Oprojektu() {
                                 <h2 style={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'center', width: '15%'
+                                    justifyContent: 'center', width: '10%'
                                 }} role="img" aria-label="technology">📱</h2>
                                 <h2 style={{
                                     display: 'flex',
@@ -196,7 +197,7 @@ function Oprojektu() {
                     }}>
                         <OrderList>
                             <div id="item-3"
-                                 className={`order-item ${visibleItems.includes('item-3') ? 'visible' : ''}`}>
+                                 className={`order-item ${visibleItems.includes('item-3') ? 'visible' : ''}`} style={{marginRight: '10px'}}>
                                 <span>1</span> Úprava obrázků
                             </div>
                             <div id="item-4"
@@ -266,7 +267,7 @@ function Oprojektu() {
                     background: 'rgba(255, 255, 255, 0.3)',
                     width: '75%',
                     padding: '20px',
-                    minWidth: '375px', marginBottom: '25px'
+                    minWidth: '375px', marginBottom: '2em'
                 }}>
                     <HeadingContainer style={{
                         fontSize: '2em',
