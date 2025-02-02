@@ -9,6 +9,7 @@ import SignUp from "../../pages/Registrace/SignUp";
 import ForgotPassword from "../../pages/ZapomenuteHeslo/ForgotPassword";
 import ResetPassword from "../../pages/ZapomenuteHeslo/ResetPassword";
 import Account from "../../pages/Account/Account";
+import Kontakt from "../../pages/Kontakt";
 
 function AnimatedRoutes(props) {
 
@@ -24,6 +25,7 @@ function AnimatedRoutes(props) {
 
                 <Route path="/" element={<Home setImage={setImage}/>}/>
                 <Route path="o-projektu" element={<Oprojektu />}/>
+                <Route path="kontakt" element={<Kontakt />}/>
                 <Route path="zabery" element={<Zabery image={image}/>}/>
                 <Route path="prihlaseni" element={<Login />}/>
                 <Route path="registrace" element={<SignUp />}/>
