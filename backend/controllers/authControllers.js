@@ -2,7 +2,8 @@ const db = require('../utilities/db');
 const {checkData,
     emailCheck,
     otpVerification,
-    updateUserData, deleteClip
+    updateUserData,
+    deleteClip
 } =
     require('../utilities/authValidators');
 
@@ -128,7 +129,9 @@ const changePersonalData = (req, res) => {
 
     if (type === 'deleteClip') {
 
-        return deleteClip(db, clip_id, res);
+        deleteClip(db, clip_id, res);
+
+        return;
 
     } else {
 

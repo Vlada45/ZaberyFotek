@@ -2,7 +2,7 @@ import styled, {keyframes} from "styled-components";
 
 export const ClipContainer = styled.div`
     display: flex;
-    height: calc(100vh * 0.6);
+    height: calc(100vh * 0.55);
     width: calc(100vw * 0.75);
     margin-left: 25px;
     padding-top: 15px;

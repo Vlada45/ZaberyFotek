@@ -108,24 +108,6 @@ h2 {
     }
 }
 
-/*ul {*/
-/*    position: relative;*/
-/*    list-style: none;*/
-/*    margin: 5px;*/
-/*    padding: 0;*/
-/*}*/
-
-/*li {*/
-/*    margin-bottom: 10px;*/
-/*    font-size: 1em;*/
-/*}*/
-
-/*li::before {*/
-/*    content: '▶ ';*/
-/*    margin-right: 10px;*/
-/*    display: inline-block;*/
-/*}*/
-
 ul {
     list-style: none;
     padding: 0;

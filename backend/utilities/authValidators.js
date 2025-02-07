@@ -221,6 +221,7 @@ const updateUserData = (db, type, username, email, inputData, res) => {
 }
 
 /** Funkce pro smazání klipu **/
+/** Funkce pro smazání klipu **/
 const deleteClip = (db, clip_id, res) => {
 
     // Získání klipu podle ID
@@ -247,6 +248,19 @@ const deleteClip = (db, clip_id, res) => {
                     return res.status(500).json({error: 'Chyba při načítání piece_ids'});
                 }
 
+                if (pieceResult.length === 0) {
+                    db.run('DELETE FROM clips WHERE id = ?', [clip_id], (err) => {
+                        if (err) {
+                            console.error(err);
+                            return res.status(500).json({error: 'Chyba při mazání klipu'});
+                        }
+
+                        // Odpověď, že klip byl úspěšně smazán
+                        return res.status(200).json({message: 'Klip byl úspěšně smazán'});
+                    });
+                    return;
+                }
+
                 // Definice tabulek, ze kterých se budou mazat data
                 const tablesToDeleteFrom = [
                     'transition',
@@ -256,7 +270,8 @@ const deleteClip = (db, clip_id, res) => {
                     'piece',
                 ];
 
-                // Vytvoření seznamu ID jako čárkami odděleného řetězce pro použití v SQL dotazech
+                // Vytvoření seznamu piece_id pro použití v SQL dotazech
+                const pieceIds = pieceResult.map(row => row.piece_id);
                 const pieceIdsList = pieceIds.join(', ');
 
                 // Procházení tabulek a provedení mazání pro každou z nich
@@ -276,7 +291,6 @@ const deleteClip = (db, clip_id, res) => {
                         }
                     });
                 });
-
 
                 // Nakonec smažeme samotný klip
                 db.run('DELETE FROM clips WHERE id = ?', [clip_id], (err) => {

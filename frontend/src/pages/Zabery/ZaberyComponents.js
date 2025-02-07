@@ -8,12 +8,13 @@ export const ZaberyPage = styled.div`
     height: 100vh;  
     overflow: hidden;
     padding-top: 50px;
-    align-items: center;
+    align-items: flex-start;
+    font-size: 14px;
 `;
 
 
 export const ZaberySidebarContainer = styled.nav`
-    height: 85vh;
+    height: auto;
     width: 250px;
     margin-left: 50px;
     flex-direction: column;
@@ -22,6 +23,8 @@ export const ZaberySidebarContainer = styled.nav`
     border-radius: 25px;
     box-shadow: 0 5px 10px var(--color-shadow-6, 0.3);
     min-width: 250px;
+    min-height: 465px;
+    margin-top: 50px;
 
     // 520px
     @media screen and (max-width: 768px) {
@@ -36,7 +39,7 @@ export const ZaberySidebarContainer = styled.nav`
 export const ZaberySidebarItem = styled.div.withConfig({
     shouldForwardProp: (prop) => !['isClicked'].includes(prop),
 })`
-    padding: 15px;
+    padding: 10px;
     border-radius: 25px;
     color: ${({isClicked}) => (isClicked ? '#00cc66' : 'white')};
     background: ${({isClicked}) => (isClicked ? 'var(--color-shadow-8)' : 'transparent')};

@@ -237,7 +237,7 @@ function Timeline({canvasRef, selectedPieces, handlePieces, handlePieceClick, im
 
         const ctx = canvas.getContext('2d');
 
-        ctx.filter = imgFilter;
+        ctx.filter = 'none';
 
         // Získání hodnoty z paměti pro plochu klipu
         // setSelector(null, 'canvasSelector', false, 1);

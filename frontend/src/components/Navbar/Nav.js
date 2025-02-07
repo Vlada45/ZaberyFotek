@@ -22,9 +22,6 @@ function Navbar({toggle}) {
         }
     }
 
-    // Přesměrování uživatele
-    const navigate = useNavigate();
-
     const loggedInUser = localStorage.getItem("user");
 
     console.log(loggedInUser);
@@ -55,7 +52,12 @@ function Navbar({toggle}) {
             window.removeEventListener('scroll', controlNavbar)
         }
 
-    }, [loggedInUser]);
+    }, [loggedInUser, data]);
+
+    /** Zjištění chyby při načtení obrázku **/
+    const handleImageError = (event) => {
+        console.error("Chyba načtení fotografie", event.target.src);
+    };
 
 
     return (
@@ -98,11 +100,13 @@ function Navbar({toggle}) {
                             <img
                                 src={icon}
                                 alt={'Ikona Google'}
+                                onError={handleImageError}
                                 style={{
                                     width: '100%',
                                     height: '100%',
                                     objectFit: 'cover'
                                 }}
+                                referrerPolicy="no-referrer"
                             />
                         </UserProfile> :
                         <UserProfile style={{background: '#fc555f'}} to={"ucet"}>{firstLetter}</UserProfile>) :
